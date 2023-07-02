@@ -41,7 +41,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
     && curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
     && apt-get install -y --no-install-recommends \
                aptitude httpie postgresql-client wget \
-               ibm-iaccess unixodbc-dev nginx nodejs \
+               ibm-iaccess unixodbc-dev nginx nodejs openssh openssh-server \
                php${PHP_VERSION} php${PHP_VERSION}-dom php${PHP_VERSION}-mbstring php${PHP_VERSION}-fpm php${PHP_VERSION}-xdebug
 
 COPY --from=composer/composer /usr/bin/composer /usr/local/bin/composer
