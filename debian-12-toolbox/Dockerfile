@@ -3,13 +3,6 @@ FROM debian:12
 LABEL org.opencontainers.image.source=https://github.com/brandonp42/containers
 LABEL org.opencontainers.image.description="Debian 12 toolbox container"
 
-RUN export DEBIAN_FRONTEND=noninteractive \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-               apt-utils aptitude build-essential ca-certificates curl \
-               dumb-init git gpg httpie iputils-ping jq less net-tools nmap \
-               postgresql-client procps python3 sudo unzip vim wget
-
 RUN  set -ex; \
      \
      curl -o /usr/local/bin/su-exec.c https://raw.githubusercontent.com/ncopa/su-exec/master/su-exec.c; \
@@ -24,6 +17,13 @@ RUN  set -ex; \
      rm /usr/local/bin/su-exec.c; \
      \
      apt-get purge -y --auto-remove $fetch_deps
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+               apt-utils aptitude build-essential ca-certificates curl \
+               dumb-init git gpg httpie iputils-ping jq less net-tools nmap \
+               postgresql-client procps python3 sudo unzip vim wget
 
 ENTRYPOINT [ "dumb-init" ]
 CMD [ "bash", "-l" ]
