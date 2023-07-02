@@ -12,7 +12,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
                apt-utils build-essential ca-certificates curl dumb-init git \
-               gpg iputils-ping jq less net-tools nmap procps sudo unzip vim
+               gpg iputils-ping jq less net-tools nmap procps redis-tools sudo \
+               unzip vim
 
 RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt/lists \
