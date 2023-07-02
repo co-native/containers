@@ -21,8 +21,17 @@ RUN --mount=type=cache,target=/var/cache/apt \
 	       gpg iputils-ping jq less net-tools nmap procps redis-tools s6 \
 	       sudo tini unzip vim
 
+RUN  set -ex; \
+     \
+     curl -o /usr/local/bin/su-exec.c https://raw.githubusercontent.com/ncopa/su-exec/master/su-exec.c; \
+     \
+     gcc -Wall /usr/local/bin/su-exec.c -o/usr/local/bin/su-exec; \
+     chown root:root /usr/local/bin/su-exec; \
+     chmod 0755 /usr/local/bin/su-exec; \
+     rm /usr/local/bin/su-exec.c
+
 # install specific packages for this container
-ARG PHP_VERSION=8.1
+ARG PHP_VERSION=8.2
 ARG NODE_VERSION=18
 
 RUN --mount=type=cache,target=/var/cache/apt \
@@ -36,15 +45,6 @@ RUN --mount=type=cache,target=/var/cache/apt \
                php${PHP_VERSION} php${PHP_VERSION}-dom php${PHP_VERSION}-mbstring php${PHP_VERSION}-fpm php${PHP_VERSION}-xdebug
 
 COPY --from=composer/composer /usr/bin/composer /usr/local/bin/composer
-
-RUN  set -ex; \
-     \
-     curl -o /usr/local/bin/su-exec.c https://raw.githubusercontent.com/ncopa/su-exec/master/su-exec.c; \
-     \
-     gcc -Wall /usr/local/bin/su-exec.c -o/usr/local/bin/su-exec; \
-     chown root:root /usr/local/bin/su-exec; \
-     chmod 0755 /usr/local/bin/su-exec; \
-     rm /usr/local/bin/su-exec.c
 
 # define the startup process
 COPY standalone-start.sh /root/
