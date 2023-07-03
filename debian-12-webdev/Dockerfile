@@ -46,6 +46,13 @@ RUN --mount=type=cache,target=/var/cache/apt \
 
 COPY --from=composer/composer /usr/bin/composer /usr/local/bin/composer
 
+# add user for eclipse-che
+RUN addgroup --gid 1234 user \
+    && adduser --uid 1234 --gid 1234 --disabled-password --gecos "" user \
+    && mkdir /projects \
+    && chown 1234:1234 /projects \
+    && chmod 00755 /projects
+
 # define the startup process
 COPY . /
 
