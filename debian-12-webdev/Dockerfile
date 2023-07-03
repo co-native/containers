@@ -47,8 +47,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
 COPY --from=composer/composer /usr/bin/composer /usr/local/bin/composer
 
 # define the startup process
-COPY standalone-start.sh /root/
+COPY . /
 
 ENTRYPOINT [ "dumb-init" ]
-CMD ["/root/standalone-start.sh"]
-
+CMD ["/standalone-start.sh"]
