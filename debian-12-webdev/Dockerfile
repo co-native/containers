@@ -56,5 +56,7 @@ RUN addgroup --gid 1234 user \
 # define the startup process
 COPY . /
 
+ENV VSCODE_NODEJS_RUNTIME_DIR="/usr/bin"
+
 ENTRYPOINT [ "dumb-init" ]
 CMD ["/standalone-start.sh"]
