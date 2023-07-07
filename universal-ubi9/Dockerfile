@@ -106,7 +106,7 @@ ENV GOBIN="/home/user/go/bin/"
 ENV PATH="$GOBIN:$PATH"
 
 # Python
-RUN dnf -y install python39-devel python39-pip nss_wrapper
+RUN dnf -y install python3-devel python3-pip nss_wrapper
 RUN pip install pylint yq
 
 # PHP
